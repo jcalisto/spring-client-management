@@ -11,7 +11,7 @@
 	<groupId>com.multicert.task</groupId>
 	<artifactId>MClientsApp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>MClientsApp</name>
 	<description>Client Management System</description>
 
