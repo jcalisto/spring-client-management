@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>MClientsApp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!-- CSS only -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body style="height: 100vh;">
+	
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+
+	<div class="container">
+		<br>
+		<form th:action="@{/clients/add}" method="post">
+			<div th:if="${errorMessage}">
+				<p class="text-danger" th:text="${errorMessage}"></p>
+			</div>
+			<div class="row">
+			  <div class="col">
+				<input name="name" type="text" class="form-control" placeholder="Name">
+			  </div>
+			  <div class="col">
+				<input name="nif" type="text" class="form-control" placeholder="NIF">
+			  </div>
+			  <div class="col">
+				<input name="phone" type="text" class="form-control" placeholder="Phone">
+			  </div>
+			  <div class="col">
+				<input name="address" type="text" class="form-control" placeholder="Address">
+			  </div>
+			  <div class="col">
+				<button class="btn btn-outline-success" type="submit">Add Client</button>
+			  </div>
+			</div>
+		  </form>
+		  <br>
+		  <hr/>
+		<div class="row justify-content-center pt-5">
+			<div class="col-lg-8 col-md-12">
+				<!-- Search form -->
+				<form th:action="@{/clients/search}" method="get" class="form-inline d-flex justify-content-center md-form form-sm mt-0 ">
+					<input name="filter" class="form-control mr-sm-2" type="text" placeholder="Search by Name or NIF" aria-label="Search">
+					<button class="btn btn-outline-secondary" type="submit">Search</button>
+				  </form>
+				<br>
+
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th scope="col">Id</th>
+							<th scope="col">Name</th>
+							<th scope="col">NIF</th>
+							<th scope="col">Phone</th>
+							<th scope="col">Address</th>
+							<th scope="col">Actions</th>
+						</tr>
+						</thead>
+					
+					<tr th:each="client : ${clients}">
+						<td th:text="${client.getId()}">Id</td>
+						<td th:text="${client.getName()}">Name</td>
+						<td th:text="${client.getNIF()}">NIF</td>
+						<td th:text="${client.getPhone()}">Phone</td>
+						<td th:text="${client.getAddress()}">Address</td>
+						<td class="text-center">
+							<form th:action="@{/client/delete}" method="post">
+								<input type="hidden" name="clientId" th:value="${client.getId()}" />
+								<input type="submit" value="X" class="btn btn-danger btn-sm rounded-2"/>
+							</form>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		
+	</div>
+
+</body>
+</html>
+
